@@ -9,14 +9,18 @@ It also includes a **Streamlit web app** where you can **draw digits** and get p
 
 ## 🎨 Example – Streamlit App
 
-#### 🖌 Drawing a digit
-
-![Canvas Screenshot](screenshots/canvas.png)
-
 #### ✅ Model Prediction
 
-![Prediction Screenshot](screenshots/prediction.png)
-
+<table align="center">
+  <tr>
+    <td>
+      <img src="screenshots/Screenshot 2025-08-20 005325.png"  width="280px">
+    </td>
+    <td>
+      <img src="screenshots/Screenshot 2025-08-20 005423.png"  width="280px">
+    </td>
+  </tr>
+</table>
 ---
 
 ## ✨ Key Features
