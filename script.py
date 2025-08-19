@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import time
+import pickle
 
 
 def sigmoid(x):
@@ -180,3 +181,8 @@ for i in range(len(Y_test)):
 
 accuracy = (correct_predictions/ len(Y_test)) *100
 print(f"\n Test accuracy: {accuracy:.2f}%")
+
+print("Training completed, now saving the model...")
+with open('trainedModel.pkl', 'wb') as f:
+    pickle.dump(nn, f)
+print("Model saved successfully.")
