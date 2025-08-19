@@ -17,12 +17,12 @@ Both models are integrated into a **Streamlit app** where you can **draw digits*
 
 <table align="center">
 <tr>
-<td align="center"><b>Sigmoid Model – Drawing</b><br><img src="screenshots/sigmoid_draw.png" width="280px"></td>
-<td align="center"><b>Sigmoid Model – Prediction</b><br><img src="screenshots/sigmoid_pred.png" width="280px"></td>
+<td align="center"><b>Sigmoid Model</b><br><img src="screenshots/sigmoid_pred1.png" width="280px"></td>
+<td align="center"><b>Sigmoid Model</b><br><img src="screenshots/sigmoid_pred2.png" width="280px"></td>
 </tr>
 <tr>
-<td align="center"><b>ReLU/Softmax Model – Drawing</b><br><img src="screenshots/relu_draw.png" width="280px"></td>
-<td align="center"><b>ReLU/Softmax Model – Prediction</b><br><img src="screenshots/relu_pred.png" width="280px"></td>
+<td align="center"><b>ReLU/Softmax Model</b><br><img src="screenshots/relu_pred1.png" width="280px"></td>
+<td align="center"><b>ReLU/Softmax Model</b><br><img src="screenshots/relu_pred2.png" width="280px"></td>
 </tr>
 </table>
 
