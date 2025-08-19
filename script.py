@@ -139,50 +139,49 @@ if __name__ == '__main__':
 
     nn = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
+    print(f"\n Starting training on {X_train.shape[0]} images for {epochs} epochs.")
+    start_time = time.time()
+
+    for epoch in range(epochs):
+        print(f"\n Epoch {epoch+1}/{epochs}")
+
+        # loop of every image in array
+        for i in range (X_train.shape[0]):
+
+            #convert the image into a matrix (784 , 1)
+            inputs = X_train[i].reshape(input_nodes,1)
+
+            #creates vector of 10 zeros and then place 1 at the index of the correct digit
+            targets = np.zeros((output_nodes,1))
+            targets[Y_train[i]]=1
+
+            nn.train(inputs, targets)
+
+            # print after every 10k images
+            if(i+1)%10000 ==0:
+                print(f"Processed {i+1}/{X_train.shape[0]} images")
 
 
-print(f"\n Starting training on {X_train.shape[0]} images for {epochs} epochs.")
-start_time = time.time()
+    end_time = time.time()
+    print(f"\n Training Complete! Took {end_time - start_time:.2f} seconds.")
 
-for epoch in range(epochs):
-    print(f"\n Epoch {epoch+1}/{epochs}")
+    print("Testing")
+    correct_predictions = 0
 
-    # loop of every image in array
-    for i in range (X_train.shape[0]):
+    for i in range(len(Y_test)):
+        inputs = X_test[i].reshape(input_nodes,1)
+        label = Y_test[i]
 
-        #convert the image into a matrix (784 , 1)
-        inputs = X_train[i].reshape(input_nodes,1)
+        prediction = nn.predict(inputs)
 
-        #creates vector of 10 zeros and then place 1 at the index of the correct digit
-        targets = np.zeros((output_nodes,1))
-        targets[Y_train[i]]=1
+        if prediction == label:
+            correct_predictions +=1 
 
-        nn.train(inputs, targets)
+    accuracy = (correct_predictions/ len(Y_test)) *100
+    print(f"\n Test accuracy: {accuracy:.2f}%")
 
-        # print after every 10k images
-        if(i+1)%10000 ==0:
-            print(f"Processed {i+1}/{X_train.shape[0]} images")
+    print("Training completed, now saving the model...")
+    with open('trained_model.pkl', 'wb') as f:
+        pickle.dump(nn, f)
+    print("Model saved successfully.")
 
-
-end_time = time.time()
-print(f"\n Training Complete! Took {end_time - start_time:.2f} seconds.")
-
-print("Testing")
-correct_predictions = 0
-
-for i in range(len(Y_test)):
-    inputs = X_test[i].reshape(input_nodes,1)
-    label = Y_test[i]
-
-    prediction = nn.predict(inputs)
-
-    if prediction == label:
-        correct_predictions +=1 
-
-accuracy = (correct_predictions/ len(Y_test)) *100
-print(f"\n Test accuracy: {accuracy:.2f}%")
-
-print("Training completed, now saving the model...")
-with open('trained_model.pkl', 'wb') as f:
-    pickle.dump(nn, f)
-print("Model saved successfully.")
