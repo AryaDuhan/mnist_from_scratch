@@ -11,20 +11,42 @@ Both models are integrated into a **Streamlit app** where you can **draw digits*
 
 ---
 
-## 🎨 Example – Streamlit App  
+## 🎨 Interactive Streamlit App  
 
-### ✅ Model Predictions  
+### ✅ Model Comparison Dashboard  
 
-<table align="center">
+The app provides a **side-by-side comparison** of both neural networks with real-time predictions:
+
+<table align="center" border="1" style="border-collapse: collapse;">
+<thead>
 <tr>
-<td align="center"><b>Sigmoid Model – Drawing</b><br><img src="screenshots/sigmoid_draw.png" width="280px"></td>
-<td align="center"><b>Sigmoid Model – Prediction</b><br><img src="screenshots/sigmoid_pred.png" width="280px"></td>
+<th align="center" width="25%"><b>Model Type</b></th>
+<th align="center" width="35%"><b>Prediction Example 1</b></th>
+<th align="center" width="35%"><b>Prediction Example 2</b></th>
+<th align="center" width="5%"><b>Accuracy</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>🔸 Sigmoid<br>Network</b></td>
+<td align="center"><img src="screenshots/sigmoid_pred1.png" width="280px"><br><i>Drawing & prediction interface</i></td>
+<td align="center"><img src="screenshots/sigmoid_pred2.png" width="280px"><br><i>Alternative digit example</i></td>
+<td align="center"><b>~95%</b></td>
 </tr>
 <tr>
-<td align="center"><b>ReLU/Softmax Model – Drawing</b><br><img src="screenshots/relu_draw.png" width="280px"></td>
-<td align="center"><b>ReLU/Softmax Model – Prediction</b><br><img src="screenshots/relu_pred.png" width="280px"></td>
+<td align="center"><b>🔹 ReLU/Softmax<br>Network</b></td>
+<td align="center"><img src="screenshots/relu_pred1.png" width="280px"><br><i>Drawing & prediction interface</i></td>
+<td align="center"><img src="screenshots/relu_pred2.png" width="280px"><br><i>Alternative digit example</i></td>
+<td align="center"><b>~97.5%</b></td>
 </tr>
+</tbody>
 </table>
+
+**Key Interface Features:**
+- **Drawing Canvas** – Interactive digit drawing for both models
+- **Real-time Predictions** – Instant confidence scores and digit classification  
+- **Probability Charts** – Visual confidence distribution for all 10 digits (0-9)
+- **Performance Comparison** – See how Sigmoid vs ReLU/Softmax models differ
 
 ---
 
