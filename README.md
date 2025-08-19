@@ -18,17 +18,27 @@ Both models are integrated into a **Streamlit app** where you can **draw digits*
 
 The app provides a **side-by-side comparison** of both neural networks with real-time predictions:
 
-<table align="center" border="1" style="border-collapse: collapse;">
-<thead>
-<tr>
-<td align="center"><b>Sigmoid Model</b><br><img src="screenshots/sigmoid_pred1.png" width="500px"></td>
-<td align="center"><b>Sigmoid Model</b><br><img src="screenshots/sigmoid_pred2.png" width="500px"></td>
-</tr>
-<tr>
-<td align="center"><b>ReLU/Softmax Model</b><br><img src="screenshots/relu_pred1.png" width="500px"></td>
-<td align="center"><b>ReLU/Softmax Model</b><br><img src="screenshots/relu_pred2.png" width="500px"></td>
-</tr>
-</tbody>
+<table align="center">
+  <tr>
+    <td align="center"><b>Sigmoid Model</b></td>
+    <td align="center"><b>ReLU/Softmax Model</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="screenshots/sigmoid_pred1.png" alt="Sigmoid Prediction 1" width="500px">
+    </td>
+    <td>
+      <img src="screenshots/relu_pred1.png" alt="ReLU Prediction 1" width="500px">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="screenshots/sigmoid_pred2.png" alt="Sigmoid Prediction 2" width="500px">
+    </td>
+    <td>
+      <img src="screenshots/relu_pred2.png" alt="ReLU Prediction 2" width="500px">
+    </td>
+  </tr>
 </table>
 
 **Key Interface Features:**
