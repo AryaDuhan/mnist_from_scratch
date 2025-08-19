@@ -53,7 +53,7 @@ with col1:
 with col2:
     if st.button("Clear"):
         st.session_state.clear_canvas = True
-        st.experimental_rerun()
+        st.rerun()
 
 canvas_result = st_canvas(
     stroke_width=20,
