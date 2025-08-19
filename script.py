@@ -38,14 +38,11 @@ def load_idx_data(images_path, labels_path):
 class NeuralNetwork:
 
     #creates a new instance of NeuralNetwork
-    def __init__(self,input_nodes, hidden_nodes, output_nodes, learning_rate, l2_lambda=0.0):
+    def __init__(self,input_nodes, hidden_nodes, output_nodes, learning_rate):
         self.input_nodes = input_nodes
         self.hidden_nodes = hidden_nodes
         self.output_nodes = output_nodes
         self.learning_rate = learning_rate
-
-        #regularization
-        self.l2_lambda = l2_lambda
 
         #xavier initialization
         self.weights_ih = np.random.randn(self.hidden_nodes, self.input_nodes) * np.sqrt(2. / (self.input_nodes + self.hidden_nodes))
@@ -85,7 +82,7 @@ class NeuralNetwork:
         delta_weights_ho=np.dot(output_gradient, hidden_outputs.T)
         # who=who + alpha(del sigma/ del who)
         # where (del sigma/ del who) = sigma'(zo) * y-Ao * Ah.T
-        self.weights_ho += delta_weights_ho - self.learning_rate * self.l2_lambda*self.weights_ho
+        self.weights_ho += delta_weights_ho
         # bho= bho + sigma'(zo) * y-Ao * alpha
         self.bias_o+=output_gradient
 
@@ -97,7 +94,7 @@ class NeuralNetwork:
         # (sigma'(zh) * Who.T . y - Ao * alpha). x.T
         delta_weights_ih=np.dot(hidden_gradient, inputs.T)
         # wih=wih + alpha(del sigma/ del wih)
-        self.weights_ih+=delta_weights_ih - self.learning_rate * self.l2_lambda*self.weights_ih
+        self.weights_ih+=delta_weights_ih
         # bih = bih + sigma'(zh) * y-Ao * alpha
         self.bias_h+=hidden_gradient
 
@@ -137,14 +134,13 @@ if __name__ == '__main__':
     input_nodes = 784
     hidden_nodes = 100
     output_nodes = 10
-    learning_rate = 0.01
-    epochs = 20
-    l2_lambda = 0.001
+    learning_rate = 0.05
+    epochs = 6
 
-    nn = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate, l2_lambda)
+    nn = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
     print(f"\n Starting training on {X_train.shape[0]} images for {epochs} epochs.")
-    print(f"Learning rate: {learning_rate}, L2 regularization: {l2_lambda}")
+    print(f"Learning rate: {learning_rate}")
     start_time = time.time()
 
     for epoch in range(epochs):

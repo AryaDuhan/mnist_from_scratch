@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 import pickle
 from streamlit_drawable_canvas import st_canvas
-from PIL import Image
-from script import NeuralNetwork, load_idx_data # Make sure to import load_idx_data
-import os # Import os for file path operations
+from PIL import Image, ImageOps
+from script_relu import NeuralNetwork, load_idx_data 
+import os
 
 # page tittle and layout
 st.set_page_config(page_title="MNIST Digit Recognizer", layout="wide")
@@ -12,11 +12,12 @@ st.set_page_config(page_title="MNIST Digit Recognizer", layout="wide")
 # load model only once
 @st.cache_resource
 def load_model():
+    model_path = 'trained_model_relu.pkl'
     try:
-        with open('trained_model.pkl', 'rb') as f:
+        with open(model_path, 'rb') as f:
             return pickle.load(f)
     except FileNotFoundError:
-        st.error("Error: trained_model.pkl not found. Please run the original script.py to train and save the model.")
+        st.error(f"Error: {model_path} not found. Please run script_relu.py to train and save the model.")
         st.stop()
 
 @st.cache_data
@@ -43,16 +44,29 @@ def get_test_accuracy(_nn):
             
     return (correct_predictions / len(Y_test)) * 100
 
-# MODIFICATION: Bounding box and centering logic has been removed.
 def preprocess_image(img_array):
-    """ Preprocess the image for prediction by directly resizing the canvas. """
-    
-    # convert to image and resize directly to 28x28
     pil_image = Image.fromarray(img_array.astype('uint8')).convert('L')
-    resized_image = pil_image.resize((28, 28), Image.Resampling.LANCZOS)
+    
+    bbox = pil_image.getbbox()
+    if bbox is None:
+        return np.zeros((784, 1))
 
-    # convert to numpy and normalise 
-    img_final_array = np.array(resized_image)
+    cropped_image = pil_image.crop(bbox)
+
+    width, height = cropped_image.size
+    padding = abs(width - height) // 2
+    if width > height:
+        padding_tuple = (0, padding, 0, padding)
+    else:
+        padding_tuple = (padding, 0, padding, 0)
+
+    padded_image = ImageOps.expand(cropped_image, padding_tuple, fill=0)
+    resized_image = padded_image.resize((20, 20), Image.Resampling.LANCZOS)
+
+    final_image = Image.new('L', (28, 28), 0)
+    final_image.paste(resized_image, (4, 4))
+    
+    img_final_array = np.array(final_image)
     processed_input = img_final_array.astype(np.float32).flatten().reshape(784, 1) / 255.0
 
     return processed_input
@@ -64,7 +78,7 @@ nn = load_model()
 with st.sidebar:
     st.header("About This Project")
     st.write("""
-    This app recognizes handwritten digits drawn on a canvas using a simple Neural Network trained from scratch. It showcases the core concepts of feedforward and backpropagation.
+    This app recognizes handwritten digits using a Neural Network with two hidden layers and ReLU activation, trained from scratch with NumPy.
     """)
     st.write("---")
     
@@ -100,7 +114,6 @@ with col1:
     )
     predict_button = st.button("Predict", use_container_width=True, type="primary")
 
-
 # button to predict
 with col2:
     st.subheader("Prediction")
@@ -108,20 +121,18 @@ with col2:
         if canvas_result.image_data is not None and canvas_result.image_data.any():
             with st.spinner("Predicting..."):
                 img_array = canvas_result.image_data
-
-                # Call the simplified preprocess_image function
                 processed_input = preprocess_image(img_array)
 
-                # make a prediction
-                _, final_output = nn.feedforward(processed_input)
+                # get feedforward and final output
+                *_, final_output = nn.feedforward(processed_input)
                 prediction = np.argmax(final_output)
                 confidence = np.max(final_output) * 100
             
-            # Display prediction and confidence
+            # display prediction and confidence
             st.markdown(f"## Predicted Digit: **{prediction}**")
             st.metric(label="Confidence", value=f"{confidence:.2f}%")
-            
-            # Display probability chart
+
+            # display probability chart
             st.write("Probabilities for each digit:")
             st.bar_chart(final_output.flatten())
 
