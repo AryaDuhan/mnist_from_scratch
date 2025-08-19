@@ -1,97 +1,106 @@
-# 🧠 MNIST From Scratch – Pure Python, NumPy & Streamlit
+# 🧠 MNIST From Scratch – Sigmoid vs ReLU/Softmax  
 
 A foundational **machine learning project** demonstrating a deep understanding of **neural network mechanics**.  
-This code builds a **digit recognizer** entirely **from scratch** using only Python and NumPy—no TensorFlow, PyTorch, or Keras.
+This code builds **digit recognizers from scratch** using only Python and NumPy — no TensorFlow, PyTorch, or Keras.  
 
-It also includes a **Streamlit web app** where you can **draw digits** and get predictions in real time.
+It includes **two neural network implementations**:  
+- A **simple Sigmoid network** (educational baseline).  
+- A **modern ReLU + Softmax network** (higher accuracy).  
+
+Both models are integrated into a **Streamlit app** where you can **draw digits** and see predictions in real time.  
 
 ---
 
-## 🎨 Example – Streamlit App
+## 🎨 Example – Streamlit App  
 
-#### ✅ Model Prediction
+### ✅ Model Predictions  
 
 <table align="center">
-  <tr>
-    <td>
-      <img src="screenshots/Screenshot 2025-08-20 005325.png"  width="280px">
-    </td>
-    <td>
-      <img src="screenshots/Screenshot 2025-08-20 005423.png"  width="280px">
-    </td>
-  </tr>
+<tr>
+<td align="center"><b>Sigmoid Model – Drawing</b><br><img src="screenshots/sigmoid_draw.png" width="280px"></td>
+<td align="center"><b>Sigmoid Model – Prediction</b><br><img src="screenshots/sigmoid_pred.png" width="280px"></td>
+</tr>
+<tr>
+<td align="center"><b>ReLU/Softmax Model – Drawing</b><br><img src="screenshots/relu_draw.png" width="280px"></td>
+<td align="center"><b>ReLU/Softmax Model – Prediction</b><br><img src="screenshots/relu_pred.png" width="280px"></td>
+</tr>
 </table>
----
-
-## ✨ Key Features
-
-- **Pure Python + NumPy** – Built entirely from scratch to showcase the underlying math.
-- **Object-Oriented Design** – Neural network logic encapsulated in a clean `NeuralNetwork` class.
-- **Backpropagation Algorithm** – Implemented manually without ML frameworks.
-- **Smart Initialization** – Uses **Xavier/Glorot initialization** for stable and efficient training.
-- **Data Preprocessing** – Normalization & shuffling for optimal learning.
-- **Interactive App** – Draw digits on a canvas and predict with the trained model.
-- **No Heavy Frameworks** – Only `numpy`, `streamlit`, `PIL` are required.
 
 ---
 
-## 🏗 How It Works
+## ✨ Key Features  
 
-### **Neural Network Architecture**
-
-| Layer        | Nodes | Activation |
-| :----------- | :---- | :--------- |
-| Input        | 784   | —          |
-| Hidden Layer | 100   | Sigmoid    |
-| Output       | 10    | Sigmoid    |
-
-### **Forward Propagation**
-
-1. Input image (28×28 pixels) is **flattened** into a 784-element vector.
-2. Multiply by **weights** and add **bias**.
-3. Pass the result through the **activation function**.
-4. Repeat until final predictions are produced.
-
-### **Backpropagation**
-
-1. Compute error using **Mean Squared Error (MSE)** loss.
-2. Propagate error **backward** from output → hidden.
-3. Calculate **gradients** w.r.t. weights and biases.
-4. Update parameters using **Gradient Descent**.
+- **From Scratch Implementation** – No ML frameworks, just Python + NumPy.  
+- **Two Architectures** – Compare a simple Sigmoid NN vs. modern ReLU/Softmax NN.  
+- **Object-Oriented Design** – Neural network logic encapsulated in clean classes.  
+- **Manual Backpropagation** – Implemented step by step for full transparency.  
+- **Smart Initialization** – Xavier/Glorot for stable training.  
+- **Interactive App** – Draw digits and get predictions live.  
 
 ---
 
-## 🚀 Streamlit Web App
+## 🏗 Architectural Comparison  
 
-After training, you can interact with the model through a **Streamlit app**.
+This project provides a **side-by-side comparison** of a classic and a modern NN architecture, both built **from scratch**.  
 
-- Draw a digit in the **canvas**.
-- Press **Predict** to classify it.
-- The app preprocesses the image to match MNIST format before feeding it to the model.
+### 🔹 Model 1: Simple Sigmoid Network (`script.py`)  
+
+**Architecture**:  
+- Input Layer (784 nodes)  
+- One Hidden Layer (100 nodes)  
+- Output Layer (10 nodes)  
+- **Sigmoid** activations  
+
+✅ **Pros**: Easy to understand fundamentals of feedforward/backprop.  
+❌ **Cons**: Vanishing gradients, slower learning, ~95% accuracy.  
 
 ---
 
-## 📦 Installation & Setup
+### 🔹 Model 2: ReLU/Softmax Network (`script_relu.py`)  
 
-### **1. Clone the Repository**
+**Architecture**:  
+- Input Layer (784 nodes)  
+- Hidden Layer 1 (128 nodes, ReLU)  
+- Hidden Layer 2 (64 nodes, ReLU)  
+- Output Layer (10 nodes, Softmax)  
+
+✅ **Pros**: Faster training, avoids vanishing gradient, ~97.5% accuracy.  
+✅ **Probabilistic output** with confidence scores.  
+
+---
+
+### 📊 Performance at a Glance  
+
+| Feature             | Sigmoid Model | ReLU/Softmax Model |
+|---------------------|--------------|--------------------|
+| Hidden Layers       | 1            | 2                  |
+| Hidden Activations  | Sigmoid      | ReLU               |
+| Output Activation   | Sigmoid      | Softmax            |
+| Typical Accuracy    | ~95%         | ~97.5%             |
+| Training Speed      | Slower       | Faster             |
+
+---
+
+## 📦 Installation & Setup  
+
+### 1. Clone the Repository  
 
 ```bash
 git clone https://github.com/AryaDuhan/mnist_from_scratch.git
 cd mnist_from_scratch
 ```
 
-### **2. Install Dependencies**
+### 2. Install Dependencies
 
 ```bash
 pip install numpy pillow streamlit streamlit-drawable-canvas
 ```
 
-### **3. Download MNIST Dataset**
+### 3. Download MNIST Dataset
 
-Download the `.idx` files from:  
-🔗 [Kaggle – MNIST Dataset](https://www.kaggle.com/datasets/hojjatk/mnist-dataset)
+Download from: 🔗 [Kaggle – MNIST Dataset](https://www.kaggle.com/datasets/hojjatk/mnist-dataset)
 
-Place them inside the `mnist_data/` folder:
+Place files in `mnist_data/`:
 
 ```
 mnist_data/
@@ -101,25 +110,41 @@ mnist_data/
 └── t10k-labels.idx1-ubyte
 ```
 
-### **4. Train the Model**
+### 4. Train the Models
+
+Train the **Sigmoid model**:
 
 ```bash
 python script.py
 ```
 
-This will train the neural network and save the weights as `trained_model.pkl`.
+Creates: `trained_model.pkl`
 
-### **5. Run the Streamlit App**
+Train the **ReLU/Softmax model**:
+
+```bash
+python script_relu.py
+```
+
+Creates: `trained_model_relu.pkl`
+
+### 5. Run the Streamlit App
+
+Sigmoid model:
 
 ```bash
 streamlit run app.py
 ```
 
-This opens a local web app where you can **draw digits** and test predictions live.
+ReLU/Softmax model:
+
+```bash
+streamlit run app_relu.py
+```
 
 ---
 
-## 📊 Example Output (Training)
+## 📊 Example Training Output
 
 ```bash
 Starting training on 60000 images for 3 epochs.
@@ -134,4 +159,4 @@ Accuracy: 96.31%
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** – see the LICENSE file for details.
