@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image
+from script import NeuralNetwork
 
 # page tittle and layout
 st.set_page_config(page_title="MNIST Digit Recognizer", layout="wide")
