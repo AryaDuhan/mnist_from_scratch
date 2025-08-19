@@ -134,8 +134,8 @@ if __name__ == '__main__':
     input_nodes = 784
     hidden_nodes = 100
     output_nodes = 10
-    learning_rate = 0.05
-    epochs = 6
+    learning_rate = 0.01
+    epochs = 10
 
     nn = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
